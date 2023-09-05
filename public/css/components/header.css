@@ -1,0 +1,41 @@
+:root {
+    --background-color: #D2E9E9;
+    --form-color: #F8F6F4;
+    --field-color: #ffffff;
+    --button-color: #C4DFDF;
+}
+
+.search-container {
+    display: flex;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--field-color);
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.search-box select {
+    flex-grow: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: var(--form-color);
+}
+
+.search-box select:hover {
+    background-color: #eeeae6;
+    cursor: pointer;
+}
+.search-box input {
+    flex-grow: 3;
+    border: none;
+}
+.search-box button {
+    border: none;
+    background-color: transparent;
+}
+
+.nav-logo {
+    height: 50px;
+}
