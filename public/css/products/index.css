@@ -5,6 +5,7 @@
     --button-color: #C4DFDF;
 }
 
+
 body {
     margin: 0;
     padding: 0;
@@ -14,8 +15,9 @@ body {
     min-height: 100vh;
 }
 
-.home-body {
+.main-product-index {
     flex-grow: 1;
 }
+
 
 

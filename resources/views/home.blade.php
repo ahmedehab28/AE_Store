@@ -11,26 +11,10 @@
     </head>
     <body>
         @include('layouts.header')
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
-        <h1>HOME SWEET HOME</h1>
+        <div class="home-body">
+            <h1>HOME SWEET HOME</h1>
 
-
+        </div>
         @include('layouts.footer')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
