@@ -71,7 +71,9 @@ Route::middleware(['admin'])->group(function () {
 });
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
-
+// purchasing
+Route::post('/product/{product}/buy', [PurchaseController::class, 'buy'])->name('product.buy')->middleware('auth');
+Route::get('/orders/{order}/confirmation', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
 Route::resource('/orders', OrderController::class);
 

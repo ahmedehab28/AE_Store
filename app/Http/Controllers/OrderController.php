@@ -13,9 +13,18 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
         $orders = Order::with(['user', 'product'])->get();
         return view('orders.index', compact('orders'));
+    }
+
+    public function confirmation(Order $order) {
+        // Check if the user is authorized to view the order
+        if ($order->user_id !== auth()->id()) {
+            // The user is not authorized to view the order
+            abort(403);
+        }
+
+        return view('orders.confirmation', ['order' => $order]);
     }
 
     /**

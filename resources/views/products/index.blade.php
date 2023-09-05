@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="{{ asset('css/products/index.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
 
     <title>Products</title>
 </head>
@@ -46,7 +46,7 @@
                                 <input type="submit" value="Show" class="card-button show-product">
                             </a>
                             <a href="#">
-                                <input type="submit" value="Add To Cart" class="card-button add-to-cart">
+                                <input type="submit" value="Add To Cart" class="card-button add-to-cart" @if($product->quantity == 0) disabled @endif>
                             </a>
                         </div>
                     </div>
