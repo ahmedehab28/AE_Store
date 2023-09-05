@@ -15,11 +15,14 @@
             <form class="d-flex mx-auto" action="" method="POST">
                 <div class="search-container">
                     <div class="search-box">
+
                         <select aria-label="Select Category">
                             <option selected>All</option>
-                            <option value="category1">Category 1</option>
-                            <option value="category2">Category 2</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
+
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </div>
@@ -32,7 +35,7 @@
                 </li>
                 @if (Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cart</a>
+                        <a class="nav-link"><span class="balance">Balance: {{ Auth::user()->money }}</span></a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -42,6 +45,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Cart</a></li>
                             <li><a class="dropdown-item" href="#">Order History</a></li>
                             <li>
                                 <hr class="dropdown-divider">
