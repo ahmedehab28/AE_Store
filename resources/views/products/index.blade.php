@@ -21,45 +21,42 @@
         @endcan
 
         @if ($products->isEmpty())
-            <h1>No products yet!</h1>
-
+            <h1>No products Found!</h1>
         @else
-            <h1>Products</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>price</th>
-                        <th>availablity</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach ($products as $product)
-                        <tr>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->price }}</td>
-                            <td>{{ $product->availability }}</td>
-                            <td>
-                                <a href="/products/{{ $product->id }}"><button>Show</button></a>
-                                <form action="{{ route('product.destroy', $product->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit">Delete</button>
-                                </form>
-                                <form action="{{ route('product.update', $product->id) }}" method="get">
-                                    <button type="submit">Update</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-
-                </tbody>
-            </table>
+        <h1>Products</h1>
+        <div class="row">
+            @foreach ($products as $product)
+                <div class="col-sm-4">
+                    <div class="card">
+                        @if($product->picture)
+                        <img src="{{ $product->picture }}" class="card-img-top" alt="{{ $product->name }}">
+                        @else
+                        <img src="{{asset('images/header-logo.png')}}" alt="NoPic">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">{{ $product->description }}</p>
+                            <p class="card-text"><span class="card-attribute">Price:</span>  ${{ $product->price }}</p>
+                            @if($product->quantity == 0)
+                            <p class="out-of-stock">Out Of Stock!</p>
+                            @else
+                            <p class="card-text"><span class="card-attribute">Quantity:</span> {{ $product->quantity }}</p>
+                            @endif
+                            <a href="{{route('product.show',$product->id)}}">
+                                <input type="submit" value="Show" class="card-button show-product">
+                            </a>
+                            <a href="#">
+                                <input type="submit" value="Add To Cart" class="card-button add-to-cart">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
         @endif
     </div>
     @include('layouts.footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

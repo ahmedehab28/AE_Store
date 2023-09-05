@@ -19,5 +19,47 @@ body {
     flex-grow: 1;
 }
 
+.card {
+    margin: 0.2rem;
+    border-radius: 7px;
+}
 
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-title{
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+}
+
+.card-attribute {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+}
+
+.card-button {
+    border: none;
+    background-color: var(--button-color);
+    border-radius: 5px;
+    width: 100%;
+    padding: 7px;
+    margin-bottom: 7px;
+}
+
+.card-button:hover {
+    background-color: #b5d1d1;
+}
+
+.out-of-stock {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    color: red
+}
 
