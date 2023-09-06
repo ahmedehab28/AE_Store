@@ -34,10 +34,15 @@
             <input type="submit" value="Sign In">
         </form>
     </div>
-    @if ($errors->has('email'))
-    <span class="warning-response" role="alert">
-        <strong>{{ $errors->first('email') }}</strong>
-    </span>
+
+
+    {{-- Displaying Errors --}}
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <span class="warning-response" role="alert">
+                <strong>{{ $error }}</strong>
+            </span>
+        @endforeach
     @endif
 
 

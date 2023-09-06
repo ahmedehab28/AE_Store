@@ -41,11 +41,15 @@
             </a>
         </div>
     </div>
-    @if ($errors->has('email'))
-    <span class="warning-response" role="alert">
-        <strong>{{ $errors->first('email') }}</strong>
-    </span>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <span class="warning-response" role="alert">
+                <strong>{{ $error }}</strong>
+            </span>
+        @endforeach
     @endif
+
     @include('layouts.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>

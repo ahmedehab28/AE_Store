@@ -24,31 +24,13 @@ class OrderController extends Controller
             abort(403);
         }
 
-        return view('orders.confirmation', ['order' => $order]);
+        return view('orders.confirmation', compact('order'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Order $order)
     {
-        //
+
     }
 
     /**

@@ -26,22 +26,23 @@
         <h1>Products</h1>
         <div class="row">
             @foreach ($products as $product)
-                <div class="col-sm-4">
-                    <div class="card">
-                        @if($product->picture)
-                        <img src="{{ $product->picture }}" class="card-img-top" alt="{{ $product->name }}">
+            <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+                <div class="card w-100 my-2 shadow-2-strong">
+                    @if($product->picture)
+                    <img src="{{ $product->picture }}" class="card-img-top" alt="{{ $product->name }}">
+                    @else
+                    <img src="{{asset('images/header-logo.png')}}" alt="NoPic">
+                    @endif
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ $product->name }}</h5>
+                        <p class="card-text">{{ $product->description }}</p>
+                        <p class="card-text"><span class="card-attribute">Price:</span>  ${{ $product->price }}</p>
+                        @if($product->quantity == 0)
+                        <p class="out-of-stock">Out Of Stock!</p>
                         @else
-                        <img src="{{asset('images/header-logo.png')}}" alt="NoPic">
+                        <p class="card-text"><span class="card-attribute">Quantity:</span> {{ $product->quantity }}</p>
                         @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text">{{ $product->description }}</p>
-                            <p class="card-text"><span class="card-attribute">Price:</span>  ${{ $product->price }}</p>
-                            @if($product->quantity == 0)
-                            <p class="out-of-stock">Out Of Stock!</p>
-                            @else
-                            <p class="card-text"><span class="card-attribute">Quantity:</span> {{ $product->quantity }}</p>
-                            @endif
+                        <div class="card-footer row d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
                             <a href="{{route('product.show',$product->id)}}">
                                 <input type="submit" value="Show" class="card-button show-product">
                             </a>
@@ -51,6 +52,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
         @endif

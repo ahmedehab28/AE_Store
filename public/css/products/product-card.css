@@ -52,8 +52,13 @@ body {
     margin-bottom: 7px;
 }
 
+.card-footer a {
+    display: block;
+}
+
 .card-button:hover {
     background-color: #b5d1d1;
+    transform: scale(1.02);
 }
 
 .card-button:disabled:hover {
@@ -66,5 +71,17 @@ body {
     font-size: 15px;
     letter-spacing: 0.06em;
     color: red
+}
+
+.warning {
+    color:red;
+    margin: 0 10px;
+}
+
+.warning-response {
+    color:red;
+    display: block;
+    margin: 0 10px;
+    text-align: center;
 }
 

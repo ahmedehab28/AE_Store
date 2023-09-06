@@ -49,7 +49,7 @@ class AuthController extends Controller
         try {
             $validatedData = $request->validate([
                 'email' => 'required|string|email',
-                'password' => 'required|string'
+                'password' => 'required'
             ]);
 
             if (auth()->attempt($validatedData, $request->has('remember'))) {
