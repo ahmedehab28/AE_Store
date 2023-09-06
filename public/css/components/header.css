@@ -43,3 +43,7 @@
 .balance {
     color: rgb(211, 181, 10);
 }
+
+.balance:hover {
+    color: rgb(173, 148, 10);
+}

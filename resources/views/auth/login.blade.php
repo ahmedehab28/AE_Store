@@ -9,6 +9,12 @@
     <title>Login</title>
 </head>
 <body>
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="login-logo-container">
         <img class="auth-logo" src="{{ asset('images/logo.png')}} " alt="AE LOGO">
     </div>
@@ -66,6 +72,8 @@
 
     <script src="{{ asset('js/auth/animation.js') }}"></script>
     <script src="{{ asset('js/auth/loginValidation.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 

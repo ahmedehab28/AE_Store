@@ -29,7 +29,10 @@ class AuthController extends Controller
             $user = User::create($data);
             // // Send email verification -- Not implemented yet
             // $user->sendEmailVerificationNotification();
-            return redirect()->route('home');
+
+            $request->session()->flash('status', 'Your account has been created successfully! you can login now');
+
+            return redirect()->route('login');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->withErrors($e->validator->errors());
         } catch (\Illuminate\Database\QueryException $e) {

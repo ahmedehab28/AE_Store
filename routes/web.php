@@ -8,6 +8,8 @@ use App\Http\Controllers\PurchaseController;
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +23,11 @@ use Illuminate\Support\Facades\Route;
 
 // Home Page
 Route::get('/', function () {
-    return view('home');
+    // Retrieve the latest 10 products from the database
+    $products = Product::latest()->take(10)->get();
+
+    // Pass the products to the view
+    return view('home', compact('products'));
 })->name('home');
 
 
@@ -76,7 +82,9 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.
 Route::post('/product/{product}/buy', [PurchaseController::class, 'buy'])->name('product.buy')->middleware('auth');
 Route::get('/orders/{order}/confirmation', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
-Route::resource('/orders', OrderController::class);
+
+// Orders
+Route::resource('/orders', OrderController::class)->middleware('auth');
 
 Route::resource('/category',CategoryController::class);
 //php artisan route:list

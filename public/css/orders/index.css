@@ -18,9 +18,13 @@ body {
     flex-grow: 1;
 }
 
-.order-details-contianer {
+.card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
 }
 
-.order-details-button {
-    width: 200px;
+a {
+    color: inherit;
+    text-decoration: none;
 }

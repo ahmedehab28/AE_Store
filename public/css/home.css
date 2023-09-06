@@ -18,4 +18,12 @@ body {
     flex-grow: 1;
 }
 
+.latest-product-container {
+    background-color: gray;
+}
+.latest-product-image {
+    width: 50%;
+}
+
+
 

@@ -17,10 +17,3 @@ body {
 .home-body {
     flex-grow: 1;
 }
-
-.order-details-contianer {
-}
-
-.order-details-button {
-    width: 200px;
-}

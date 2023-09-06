@@ -46,7 +46,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Cart</a></li>
-                            <li><a class="dropdown-item" href="#">Order History</a></li>
+                            <li><a class="dropdown-item" href="{{route('orders.index')}}">Order History</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

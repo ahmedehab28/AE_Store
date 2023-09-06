@@ -37,6 +37,7 @@ body {
     align-items: center;
     height: 100px;
     margin-bottom: 50px;
+    margin-top: 60px;
 }
 
 .auth-logo {
@@ -150,6 +151,14 @@ body {
     text-align: center;
 }
 
+.alert {
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 
 /* animations  */
 @keyframes fade {
@@ -170,15 +179,6 @@ body {
     animation: appear 0.15s;
 }
 
-.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-}
 
 /* responsive */
 @media (max-width: 530px) {
