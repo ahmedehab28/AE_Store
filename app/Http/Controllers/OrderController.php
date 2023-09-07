@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -57,8 +59,31 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
-    {
-        //
+    public function destroy(Order $order) {
+        if (auth()->id() !== $order->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+        try {
+            DB::beginTransaction();
+            $order->delete();
+
+            // update user's balance
+            $user = $order->user;
+            $user->money += $order->quantity * $order->product->price;
+            $user->save();
+
+            // update product's quantity
+            $product = $order->product;
+            $product->quantity += $order->quantity;
+            $product->save();
+
+            DB::commit();
+            session()->flash('status', 'Order refunded successfully!');
+            return redirect()->route('orders.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            // handle the exception
+        }
     }
+
 }

@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/products/product-card.css')}}">
+    <link rel="stylesheet" href="{{asset('css/search.css')}}" />
 
-    <title>Products</title>
+    <title>Search Results</title>
 </head>
-
 <body>
     @include('layouts.header')
-    <div class="main-product-index">
-        @can('manage-products')
-            <a href="{{ route('product.create') }}"><button>Add Product</button></a>
-            <a href="{{ route('orders.index') }}"><button>Orders</button></a>
-        @endcan
-
+    <div class="home-body">
         @if ($products->isEmpty())
             <h1>No products Found!</h1>
         @else
-        <h1>Products</h1>
+        <h1>Search Result</h1>
         <div class="row">
             @foreach ($products as $product)
             <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
@@ -56,8 +50,8 @@
         </div>
         @endif
     </div>
+
     @include('layouts.footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

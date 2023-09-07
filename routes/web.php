@@ -4,8 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Product;
@@ -85,6 +87,14 @@ Route::get('/orders/{order}/confirmation', [OrderController::class, 'confirmatio
 
 // Orders
 Route::resource('/orders', OrderController::class)->middleware('auth');
+
+
+// Searching
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+// Profile
+Route::get('/profile/{id}', [ProfileController::class, 'view'])->middleware('auth')->name('profile.view');
 
 Route::resource('/category',CategoryController::class);
 //php artisan route:list

@@ -12,22 +12,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <form class="d-flex mx-auto" action="" method="POST">
+            <form class="d-flex mx-auto" action="{{ route('search') }}" method="GET">
                 <div class="search-container">
-                    <div class="search-box">
-
-                        <select aria-label="Select Category">
-                            <option selected>All</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </div>
+                  <div class="search-box">
+                    <select name="category" aria-label="Select Category">
+                      <option value="all" {{ request('category') == 'all' ? 'selected' : '' }}>All</option>
+                      @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                      @endforeach
+                    </select>
+                    <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{ request('query') }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </div>
                 </div>
-            </form>
+              </form>
+
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -47,6 +46,10 @@
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Cart</a></li>
                             <li><a class="dropdown-item" href="{{route('orders.index')}}">Order History</a></li>
+                            @if(Auth::user()->is_admin)
+                            <li><a class="dropdown-item" href="{{route('orders.index')}}">Manage Products</a></li>
+                            <li><a class="dropdown-item" href="{{route('orders.index')}}">Manage Categories</a></li>
+                            @endif
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

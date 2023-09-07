@@ -17,3 +17,34 @@ body {
 .home-body {
     flex-grow: 1;
 }
+
+.card-attribute {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+}
+
+
+
+.order-details-contianer .card-body {
+    padding: 3rem;
+}
+
+.order-details-contianer .table td {
+    border-bottom: none;
+}
+
+
+.order-details-button {
+    width: 200px;
+}
+
+.refund-button {
+    background-color: red;
+    color: white;
+}
+
+.refund-button:hover {
+    background-color: rgb(218, 4, 4);
+    color: white;
+}
