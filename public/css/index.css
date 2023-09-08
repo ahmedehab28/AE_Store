@@ -16,4 +16,5 @@ body {
 
 .main-body-container {
     flex-grow: 1;
+    margin: 100px 20px;
 }

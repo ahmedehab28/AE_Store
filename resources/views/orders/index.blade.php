@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="{{ asset('css/orders/index.css') }}" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
     <script src="{{asset('js/reload.js')}}"></script>
 
     <title>Purchase History</title>
@@ -18,7 +20,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="home-body">
+    <div class="main-body-container">
         @if ($orders->isEmpty())
             <h1>No purchases yet!</h1>
         @else

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/index.css')}}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ asset('js/reload.js') }}"></script>
@@ -15,7 +16,7 @@
 
 <body>
     @include('layouts.header')
-    <div class="home-body">
+    <div class="main-body-container">
         <h1>HOME SWEET HOME</h1>
 
 
@@ -37,7 +38,7 @@
                                 @endif
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
+                                    <p class="card-text card-description">{{ $product->description }}</p>
                                     <p class="card-text"><span class="card-attribute">Price:</span>
                                         ${{ $product->price }}</p>
                                     @if ($product->quantity == 0)

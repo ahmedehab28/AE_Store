@@ -7,29 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
     <title>Products</title>
 </head>
 
 <body>
     @include('layouts.header')
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        </div>
-    @endif
     <div class="main-body-container">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+        @endif
         @can('manage')
             <a href="{{ route('product.create') }}"><button>Add Product</button></a>
+            <a href="{{ route('category.create') }}"><button>Add Category</button></a>
         @endcan
 
         @if ($products->isEmpty())
@@ -49,7 +52,7 @@
                             @endif
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->description }}</p>
+                                <p class="card-text card-description">{{ $product->description }}</p>
                                 <p class="card-text"><span class="card-attribute">Price:</span> ${{ $product->price }}
                                 </p>
                                 @if ($product->quantity == 0)

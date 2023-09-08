@@ -68,7 +68,20 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Products
+// Categories admin
+Route::middleware(['admin'])->group(function () {
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('category.store');
+
+    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category.show');
+
+});
+
+// Products admin
 Route::middleware(['admin'])->group(function () {
     Route::get('/products/create',[ProductController::class, 'create'])->name('product.create');
     Route::post('/products/store', [ProductController::class, 'store'])->name('product.store');
@@ -77,7 +90,10 @@ Route::middleware(['admin'])->group(function () {
     Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('product.update');
 
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
 });
+
+// Products all
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
 // purchasing
@@ -96,7 +112,9 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 // Profile
 Route::get('/profile/{id}', [ProfileController::class, 'view'])->middleware('auth')->name('profile.view');
 
-Route::resource('/category',CategoryController::class);
+
+
+
 //php artisan route:list
 //php artisan make:migration create_products_table
 //php artisan make:model -r -c -s -f

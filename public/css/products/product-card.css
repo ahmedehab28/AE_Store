@@ -39,11 +39,20 @@ body {
     overflow: hidden;
 }
 
+.card-description {
+    height: 100px;
+    overflow: hidden;
+}
+
 .card-title{
     font-weight: 800;
     font-size: 20px;
     letter-spacing: 0.06em;
+    height: 20px;
+    margin-bottom: 25px;
 }
+
+
 
 .card-attribute {
     font-weight: 800;

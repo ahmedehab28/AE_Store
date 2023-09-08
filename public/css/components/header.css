@@ -5,10 +5,10 @@
     --button-color: #C4DFDF;
 }
 
-.nav-bar {
-    display: flex;
-    position: sticky;
-    top: 0;
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
 }
 
 .search-container {

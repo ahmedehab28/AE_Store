@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/orders/confirmation.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
     <script src="{{asset('js/reload.js')}}"></script>
 
     <title>Purchase Successful!</title>
 </head>
 <body>
     @include('layouts.header')
-    <div class="home-body">
+    <div class="main-body-container">
         <div class="container order-details-contianer mt-5 mb-5">
             <div class="card">
                 <div class="card-header">

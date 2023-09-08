@@ -6,6 +6,8 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 
 
@@ -32,9 +34,10 @@ class OrderController extends Controller
 
 
     public function show(Order $order) {
-        if (Auth::id() !== $order->user_id) {
+        if (Gate::denies('same-user', $order) && Gate::denies('manage')) {
             abort(403);
         }
+
         $order->load('product', 'user');
 
         return view('orders.show', compact('order'));

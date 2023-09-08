@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
+
 class CategoryController extends Controller
 {
     /**
@@ -28,14 +31,34 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        // Validation
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
+
+        // Sanitization
+        $name = filter_var($request->name, FILTER_SANITIZE_STRING);
+
+        // Create category
+        DB::beginTransaction();
+        try {
+            Category::create([
+                'name' => $name,
+            ]);
+            DB::commit();
+            return redirect()->route('category.index')->with('success', 'Category created successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'There was a problem creating the category: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
         //

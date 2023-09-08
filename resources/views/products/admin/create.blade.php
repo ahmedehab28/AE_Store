@@ -15,7 +15,17 @@
 
 <body>
     @include('layouts.header')
-    <div class="home-body">
+    <div class="main-body-container">
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" class="create-product">
             <h1>Create a product!</h1>
             @csrf
@@ -75,15 +85,6 @@
             </div>
 
         </form>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
     @include('layouts.footer')
 
