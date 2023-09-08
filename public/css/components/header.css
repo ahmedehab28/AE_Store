@@ -5,6 +5,12 @@
     --button-color: #C4DFDF;
 }
 
+.nav-bar {
+    display: flex;
+    position: sticky;
+    top: 0;
+}
+
 .search-container {
     display: flex;
 }
@@ -41,9 +47,15 @@
 }
 
 .balance {
-    color: rgb(211, 181, 10);
+    color: rgb(74, 211, 10);
 }
 
 .balance:hover {
-    color: rgb(173, 148, 10);
+    color: rgb(72, 173, 10);
+}
+
+.header-name {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: "FF Mark W05", sans-serif;
 }

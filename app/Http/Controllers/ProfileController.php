@@ -15,6 +15,5 @@ class ProfileController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $user
     }
 }

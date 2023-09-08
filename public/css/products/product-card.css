@@ -19,11 +19,17 @@ body {
     flex-grow: 1;
 }
 
+
 .card {
     margin: 0.2rem;
     border-radius: 7px;
     transition: all 0.2s ease-in-out;
 
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit:fill;
 }
 
 .card-text {
@@ -89,7 +95,15 @@ body {
 
 .card:hover {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transform: scale(1.05);
+    transform: scale(1.01);
     transition: all 0.2s ease-in-out;
 }
 
+
+.delete-product {
+    background-color: #ff4d4d;
+}
+
+.delete-product:hover {
+    background-color: rgb(174, 49, 49)
+}

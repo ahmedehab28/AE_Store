@@ -33,23 +33,33 @@
                     <a class="nav-link" aria-current="page" href="{{ route('product.index') }}">Products</a>
                 </li>
                 @if (Auth::check())
-                    <li class="nav-item">
-                        <a class="nav-link"><span class="balance">Balance: {{ Auth::user()->money }}</span></a>
-                    </li>
+                @can('manage')
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('category.index') }}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('orders.index') }}">Orders</a>
+                </li>
+                @endcan
+                @cannot('manage')
+                <li class="nav-item">
+                    <a class="nav-link"><span class="balance">Balance: {{ Auth::user()->money }}</span></a>
+                </li>
+                @endcannot
+
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link active dropdown-toggle header-name" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
+                            @cannot('manage')
                             <li><a class="dropdown-item" href="#">Cart</a></li>
                             <li><a class="dropdown-item" href="{{route('orders.index')}}">Order History</a></li>
-                            @if(Auth::user()->is_admin)
-                            <li><a class="dropdown-item" href="{{route('orders.index')}}">Manage Products</a></li>
-                            <li><a class="dropdown-item" href="{{route('orders.index')}}">Manage Categories</a></li>
-                            @endif
+                            @endcannot
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
