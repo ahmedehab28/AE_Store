@@ -85,11 +85,12 @@ class ProductController extends Controller
         }
 
         // Sanitization
-        $name = filter_var($request->name, FILTER_SANITIZE_STRING);
-        $description = filter_var($request->description, FILTER_SANITIZE_STRING);
+        $name = strip_tags($request->name);
+        $description = strip_tags($request->description);   // using strip_tag to allow the ' char
         $quantity = filter_var($request->quantity, FILTER_SANITIZE_NUMBER_INT);
         $price = filter_var($request->price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $category_id = filter_var($request->category_id, FILTER_VALIDATE_INT);
+
 
         // Check if data has changed
         if ($name == $product->name &&

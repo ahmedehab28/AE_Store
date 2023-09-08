@@ -26,6 +26,18 @@
                                 <td class="card-attribute">Order ID:</td>
                                 <td>{{ $order->id }}</td>
                             </tr>
+
+                            @can('manage')
+                                <tr>
+                                    <td class="card-attribute">User ID:</td>
+                                    <td>{{ $order->user->id }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="card-attribute">Ordered By:</td>
+                                    <td>{{ $order->user->name }}</td>
+                                </tr>
+                            @endcan
+
                             <tr>
                                 <td class="card-attribute">Product:</td>
                                 <td>{{ $order->product->name }}</td>
@@ -65,7 +77,7 @@
 
                                 </div>
                                 <div class="col-md text-center">
-                                    <a href="{{ route('orders.index') }}"
+                                    <a href="{{ route('orders.index', $order->user->id) }}"
                                         class="btn btn-success btn-block order-details-button">PURCHASE HISTORY</a>
                                 </div>
                             </div>

@@ -17,10 +17,22 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        $orders = auth()->user()->orders()->with(['user', 'product'])->get();
-        return view('orders.index', compact('orders'));
+    public function index($id) {
+        if (Gate::allows('same-user') || Gate::allows('manage')) {
+            $orders = Order::where('user_id', $id)->with(['user', 'product'])->orderBy('created_at', 'desc')->get();
+            return view('orders.index', compact('orders'));
+        } else {
+            abort(403);
+        }
     }
+
+    public function allOrders () {
+        if (Gate::allows('manage')) {
+            $orders = Order::orderBy('created_at', 'desc')->get();
+            return view('orders.admin.index', compact('orders'));
+        }
+    }
+
 
     public function confirmation(Order $order) {
         // Check if the user is authorized to view the order
@@ -34,7 +46,7 @@ class OrderController extends Controller
 
 
     public function show(Order $order) {
-        if (Gate::denies('same-user', $order) && Gate::denies('manage')) {
+        if (Gate::denies('same-user-order', $order) && Gate::denies('manage')) {
             abort(403);
         }
 
@@ -63,7 +75,7 @@ class OrderController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Order $order) {
-        if (auth()->id() !== $order->user_id) {
+        if (Gate::denies('same-user', $order) && Gate::denies('manage')) {
             abort(403, 'Unauthorized action.');
         }
         try {

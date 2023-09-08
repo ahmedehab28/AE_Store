@@ -41,7 +41,10 @@
                             <a class="nav-link" aria-current="page" href="{{ route('category.index') }}">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('orders.index') }}">Orders</a>
+                            <a class="nav-link" aria-current="page" href="{{ route('users.index',Auth::user()->id) }}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{ route('orders.all')}}">All Orders</a>
                         </li>
                     @endcan
                     @cannot('manage')
@@ -60,7 +63,7 @@
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             @cannot('manage')
                                 <li><a class="dropdown-item" href="#">Cart</a></li>
-                                <li><a class="dropdown-item" href="{{ route('orders.index') }}">Order History</a></li>
+                                <li><a class="dropdown-item" href="{{ route('orders.index',Auth::user()->id) }}">Order History</a></li>
                             @endcannot
 
                             <li>

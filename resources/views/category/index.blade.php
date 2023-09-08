@@ -55,7 +55,6 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h5 class="card-title">{{ $category->name }}</h5>
-                                        <p class="card-text">{{ $category->description }}</p>
                                     </div>
                                     <a href="{{ route('category.show', $category->id) }}"
                                         class="btn btn-primary">Show</a>

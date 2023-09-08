@@ -24,13 +24,18 @@
         @if ($orders->isEmpty())
             <h1>No purchases yet!</h1>
         @else
-        <h1>Purchase History</h1>
+        <h1>
+            @can('manage')
+            <span>{{ $orders->first()->user->name }}'s </span>
+            @endcan
+            Purchase History
+        </h1>
         <div class="container">
             <div class="row">
                 @foreach ($orders as $order)
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
 
-                    <a href="{{route('orders.show',$order->id)}}">
+                    <a href="{{ route('orders.show', $order->id) }}">
                         <div class="card mb-3">
 
                             <div class="card-header">

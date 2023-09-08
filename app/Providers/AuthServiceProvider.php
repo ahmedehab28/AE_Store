@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,8 +29,12 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_admin;
         });
 
-        Gate::define('same-user', function ($user, $order) {
-            return $user->id === $order->user_id;
+        Gate::define('same-user', function ($user) {
+            return $user->id == Auth::user()->id;
+        });
+
+        Gate::define('same-user-order', function ($user, $order) {
+            return $user->id == $order->user_id;
         });
     }
 }

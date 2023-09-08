@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Product;
@@ -68,6 +69,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+// Users admin
+Route::middleware(['admin'])->group(function () {
+    Route::get('/users',[UserController::class, 'index'])->name('users.index');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+});
 // Categories admin
 Route::middleware(['admin'])->group(function () {
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
@@ -96,14 +103,21 @@ Route::middleware(['admin'])->group(function () {
 // Products all
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
+
 // purchasing
 Route::post('/product/{product}/buy', [PurchaseController::class, 'buy'])->name('product.buy')->middleware('auth');
 Route::get('/orders/{order}/confirmation', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
 
-// Orders
-Route::resource('/orders', OrderController::class)->middleware('auth');
+// Orders admin
+Route::middleware(['admin'])->group(function () {
+    Route::get('/all-orders', [OrderController::class, 'allOrders'])->name('orders.all');
+});
 
+// Orders normal
+Route::get('/orders/history/{id}', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show')->middleware('auth');
+Route::delete('/orders', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
 
 // Searching
 Route::get('/search', [SearchController::class, 'search'])->name('search');
