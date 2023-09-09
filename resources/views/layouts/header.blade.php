@@ -44,7 +44,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page"
-                                href="{{ route('users.index', Auth::user()->id) }}">Users</a>
+                                href="{{ route('users.index') }}">Users</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{{ route('orders.all') }}">All Orders</a>
@@ -63,7 +63,7 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.view', Auth::user()->id) }}">Profile</a></li>
                             @cannot('manage')
                                 <li><a class="dropdown-item" href="{{ route('orders.index', Auth::user()->id) }}">Order
                                         History</a></li>

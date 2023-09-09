@@ -137,7 +137,8 @@ Route::post('/cart/buy', [CartController::class, 'buy'])->name('cart.buy')->midd
 
 
 // Profile
-Route::get('/profile/{id}', [ProfileController::class, 'view'])->name('profile.view')->middleware('auth');
+Route::get('/profile/{user}', [ProfileController::class, 'view'])->name('profile.view')->middleware('auth');
+Route::put('/profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 
 
