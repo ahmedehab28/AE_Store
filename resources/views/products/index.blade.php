@@ -66,10 +66,11 @@
                                         <input type="submit" value="Show" class="card-button show-product">
                                     </a>
                                     @cannot('manage')
-                                        <a href="#">
+                                        <form action="{{ route('cart.add', $product) }}" method="POST">
+                                            @csrf
                                             <input type="submit" value="Add To Cart" class="card-button add-to-cart"
                                                 @if ($product->quantity == 0) disabled @endif>
-                                        </a>
+                                        </form>
                                     @endcannot
                                 </div>
                                 @can('manage')

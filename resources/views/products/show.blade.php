@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/products/show.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{asset('css/index.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
 
     <title>{{ $product->name }}</title>
@@ -17,11 +17,30 @@
 <body>
     @include('layouts.header')
     <div class="main-body-container">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('errors'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('errors')->first('out_of_stock') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="card">
             @if ($product->picture)
                 <img src="{{ asset('images/' . $product->picture) }}" class="card-img-top" alt="{{ $product->name }}">
             @else
-                <img src="{{ asset('images/header-logo.png') }}" alt="NoPic">
+                <img src="{{ asset('images/header-logo.png') }}" class="card-img-top" alt="NoPic">
             @endif
             <div class="card-body">
                 <h5 class="card-title">{{ $product->name }}</h5>
@@ -35,18 +54,20 @@
                 @endif
 
                 @cannot('manage')
-                <form action="{{ route('product.buy', $product) }}" method="POST">
-                    @csrf
-                    @if (!$product->quantity == 0)
-                        <input type="number" name="quantity" value="0" min="0" max="{{ $product->quantity }}">
-                    @endif
-                    <input type="submit" value="Buy" class="card-button show-product"
-                        @if ($product->quantity == 0) disabled @endif>
-                </form>
-                <a href="#">
-                    <input type="submit" value="Add To Cart" class="card-button add-to-cart"
-                        @if ($product->quantity == 0) disabled @endif>
-                </a>
+                    <form action="{{ route('product.buy', $product) }}" method="POST">
+                        @csrf
+                        @if (!$product->quantity == 0)
+                            <input type="number" name="quantity" class="form-control" value="1" min="1"
+                                max="{{ $product->quantity }}">
+                        @endif
+                        <input type="submit" value="Buy" class="card-button show-product"
+                            @if ($product->quantity == 0) disabled @endif>
+                    </form>
+                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                        @csrf
+                        <input type="submit" value="Add To Cart" class="card-button add-to-cart"
+                            @if ($product->quantity == 0) disabled @endif>
+                    </form>
                 @endcannot
 
                 @can('manage')

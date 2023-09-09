@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/components/header.css') }}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         {{-- Logo --}}
@@ -41,10 +43,11 @@
                             <a class="nav-link" aria-current="page" href="{{ route('category.index') }}">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('users.index',Auth::user()->id) }}">Users</a>
+                            <a class="nav-link" aria-current="page"
+                                href="{{ route('users.index', Auth::user()->id) }}">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('orders.all')}}">All Orders</a>
+                            <a class="nav-link" aria-current="page" href="{{ route('orders.all') }}">All Orders</a>
                         </li>
                     @endcan
                     @cannot('manage')
@@ -62,8 +65,14 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             @cannot('manage')
-                                <li><a class="dropdown-item" href="#">Cart</a></li>
-                                <li><a class="dropdown-item" href="{{ route('orders.index',Auth::user()->id) }}">Order History</a></li>
+                                <li><a class="dropdown-item" href="{{ route('orders.index', Auth::user()->id) }}">Order
+                                        History</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('cart.index') }}">
+                                        <i class="fas fa-shopping-cart"></i> Cart
+                                        <span class="badge bg-secondary">{{ Cart::getTotalQuantity() }}</span>
+                                    </a>
+                                </li>
                             @endcannot
 
                             <li>

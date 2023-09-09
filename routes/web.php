@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\CartController;
 
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
@@ -117,14 +118,26 @@ Route::middleware(['admin'])->group(function () {
 // Orders normal
 Route::get('/orders/history/{id}', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show')->middleware('auth');
-Route::delete('/orders', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
+Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
+
 
 // Searching
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
+// Add to cart
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+Route::delete('/cart/{id}', [CartController::class, 'removeItem'])->name('cart.remove')->middleware('auth');
+Route::delete('/cart/{id}/remove-one', [CartController::class, 'removeOne'])->name('cart.removeOne')->middleware('auth');
+Route::post('/cart/buy', [CartController::class, 'buy'])->name('cart.buy')->middleware('auth');
+
+
+
+
+
 // Profile
-Route::get('/profile/{id}', [ProfileController::class, 'view'])->middleware('auth')->name('profile.view');
+Route::get('/profile/{id}', [ProfileController::class, 'view'])->name('profile.view')->middleware('auth');
 
 
 

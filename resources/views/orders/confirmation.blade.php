@@ -34,7 +34,7 @@
                             <a href="{{route('orders.show', $order->id)}}" class="btn btn-primary btn-block mb-1 order-details-button">ORDER DETAILS</a>
                         </div>
                         <div class="col-md text-center">
-                            <a href="{{route('orders.index')}}" class="btn btn-success btn-block order-details-button">PURCHASE HISTORY</a>
+                            <a href="{{route('orders.index', $order->user->id)}}" class="btn btn-success btn-block order-details-button">PURCHASE HISTORY</a>
                         </div>
                     </div>
                 </div>

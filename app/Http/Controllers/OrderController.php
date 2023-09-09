@@ -64,14 +64,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Order $order) {
@@ -94,10 +86,10 @@ class OrderController extends Controller
 
             DB::commit();
             session()->flash('status', 'Order refunded successfully!');
-            return redirect()->route('orders.index');
+            return redirect()->route('orders.index',$user->id);
         } catch (\Exception $e) {
             DB::rollback();
-            // handle the exception
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/index.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link href="{{ asset('css/products/product-card.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ asset('js/reload.js') }}"></script>
@@ -17,6 +17,20 @@
 <body>
     @include('layouts.header')
     <div class="main-body-container">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session('errors'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('errors')->first('out_of_stock') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <h1>HOME SWEET HOME</h1>
 
 
@@ -53,10 +67,11 @@
                                             <input type="submit" value="Show" class="card-button show-product">
                                         </a>
                                         @cannot('manage')
-                                            <a href="#">
+                                            <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                @csrf
                                                 <input type="submit" value="Add To Cart" class="card-button add-to-cart"
                                                     @if ($product->quantity == 0) disabled @endif>
-                                            </a>
+                                            </form>
                                         @endcannot
                                     </div>
                                     @can('manage')

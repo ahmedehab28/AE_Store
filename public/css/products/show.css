@@ -1,14 +1,13 @@
-:root {
-    --background-color: #D2E9E9;
-    --form-color: #F8F6F4;
-    --field-color: #ffffff;
-    --button-color: #C4DFDF;
-}
-
 
 .card {
     margin: 20px auto;
-    width: 40%;
+    max-width:600px;
+}
+
+.card-img-top {
+    height: 50%;
+    width: 50%;
+    object-fit:fill;
 }
 
 .card-body h6 {
