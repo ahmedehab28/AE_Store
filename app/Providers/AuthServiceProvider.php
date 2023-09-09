@@ -29,8 +29,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->is_admin;
         });
 
-        Gate::define('same-user', function ($user) {
-            return $user->id == Auth::user()->id;
+        Gate::define('same-user', function ($currentUser, $user) {
+            return $currentUser->id == $user->id;
         });
 
         Gate::define('same-user-order', function ($user, $order) {

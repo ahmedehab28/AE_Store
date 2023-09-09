@@ -116,7 +116,7 @@ Route::middleware(['admin'])->group(function () {
 });
 
 // Orders normal
-Route::get('/orders/history/{id}', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
+Route::get('/orders/history/{user}', [OrderController::class, 'index'])->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show')->middleware('auth');
 Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->middleware('auth');
 

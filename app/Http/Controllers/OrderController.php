@@ -3,23 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-
-
-
-
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($id) {
-        if (Gate::allows('same-user') || Gate::allows('manage')) {
-            $orders = Order::where('user_id', $id)->with(['user', 'product'])->orderBy('created_at', 'desc')->get();
+    public function index(User $user) {
+        if (Gate::allows('same-user', $user) || Gate::allows('manage')) {
+            $orders = Order::where('user_id', $user->id)->with(['user', 'product'])->orderBy('created_at', 'desc')->get();
             return view('orders.index', compact('orders'));
         } else {
             abort(403);
@@ -67,9 +65,10 @@ class OrderController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Order $order) {
-        if (Gate::denies('same-user', $order) && Gate::denies('manage')) {
+        if (Gate::denies('same-user', $order->user) && Gate::denies('manage')) {
             abort(403, 'Unauthorized action.');
         }
+
         try {
             DB::beginTransaction();
             $order->delete();

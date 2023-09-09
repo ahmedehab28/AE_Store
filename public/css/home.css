@@ -10,4 +10,16 @@
     height: 99%;
 }
 
+@media (max-width: 1060px) {
+    .my-container .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 40%;
+    }
+}
 
+@media (max-width: 820px) {
+    .my-container .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}

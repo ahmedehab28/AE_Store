@@ -27,6 +27,9 @@ class AuthController extends Controller
 
             // Create and save the user
             $user = User::create($data);
+            if (Auth::check()) {
+                Auth::logout();
+            }
             // // Send email verification -- Not implemented yet
             // $user->sendEmailVerificationNotification();
 
