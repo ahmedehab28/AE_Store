@@ -41,19 +41,6 @@
                                     <div>
                                         <h5 class="card-title">{{ $user->name }}</h5>
                                     </div>
-                                    <div>
-                                        <a href="{{ route('orders.index', $user->id) }}"
-                                            class="btn btn-primary">Purchase History</a>
-                                        @can('manage')
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST"
-                                                style="display: inline;"
-                                                onsubmit="return confirm('Are you sure you want to delete this user?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        @endcan
-                                    </div>
                                 </div>
                             </div>
                         </div>

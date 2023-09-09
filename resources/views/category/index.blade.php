@@ -26,6 +26,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+        @endif
         <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data"
             class="create-product">
             <h1>Create a category!</h1>
@@ -43,9 +50,11 @@
                     <input type="submit" class="btn btn-primary">
                 </div>
             </div>
-
         </form>
         <h1>All Categories</h1>
+        @if($categories->isEmpty())
+        <h3>No Categories yet!</h3>
+        @else
         <div class="container">
             <div class="row">
                 @foreach ($categories as $category)
@@ -65,6 +74,8 @@
                 @endforeach
             </div>
         </div>
+        @endif
+
 
     </div>
 

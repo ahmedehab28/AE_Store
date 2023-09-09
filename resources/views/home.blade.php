@@ -33,70 +33,73 @@
 
         <h1>HOME SWEET HOME</h1>
 
+        @if (!$products->isEmpty())
+            <div class="container-fluid my-container">
+                <h2>Our Latest Products</h2>
 
-        <div class="container-fluid my-container">
-            <h2>Our Latest Products</h2>
-
-            <div class="d-flex flex-row flex-nowrap">
-                <button class="btn btn-secondary me-3" id="scroll-left">←</button>
-                <div class="d-flex flex-row flex-nowrap overflow-auto align-items-stretch">
-                    @foreach ($products as $product)
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card mx-2">
-                                @if ($product->picture)
-                                    <img src="{{ asset('images/' . $product->picture) }}" class="card-img-top img-fluid"
-                                        alt="{{ $product->name }}">
-                                @else
-                                    <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
-                                        alt="NoPic">
-                                @endif
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text card-description">{{ $product->description }}</p>
-                                    <p class="card-text"><span class="card-attribute">Price:</span>
-                                        ${{ $product->price }}</p>
-                                    @if ($product->quantity == 0)
-                                        <p class="out-of-stock">Out Of Stock!</p>
+                <div class="d-flex flex-row flex-nowrap">
+                    <button class="btn btn-secondary me-3" id="scroll-left">←</button>
+                    <div class="d-flex flex-row flex-nowrap overflow-auto align-items-stretch">
+                        @foreach ($products as $product)
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card mx-2">
+                                    @if ($product->picture)
+                                        <img src="{{ asset('images/' . $product->picture) }}"
+                                            class="card-img-top img-fluid" alt="{{ $product->name }}">
                                     @else
-                                        <p class="card-text"><span class="card-attribute">Quantity:</span>
-                                            {{ $product->quantity }}</p>
+                                        <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
+                                            alt="NoPic">
                                     @endif
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ $product->name }}</h5>
+                                        <p class="card-text card-description">{{ $product->description }}</p>
+                                        <p class="card-text"><span class="card-attribute">Price:</span>
+                                            ${{ $product->price }}</p>
+                                        @if ($product->quantity == 0)
+                                            <p class="out-of-stock">Out Of Stock!</p>
+                                        @else
+                                            <p class="card-text"><span class="card-attribute">Quantity:</span>
+                                                {{ $product->quantity }}</p>
+                                        @endif
 
-                                    <div class="card-footer row d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                        <a href="{{ route('product.show', $product->id) }}">
-                                            <input type="submit" value="Show" class="card-button show-product">
-                                        </a>
-                                        @cannot('manage')
-                                            <form action="{{ route('cart.add', $product) }}" method="POST">
-                                                @csrf
-                                                <input type="submit" value="Add To Cart" class="card-button add-to-cart"
-                                                    @if ($product->quantity == 0) disabled @endif>
-                                            </form>
-                                        @endcannot
-                                    </div>
-                                    @can('manage')
                                         <div class="card-footer row d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                            <a href="{{ route('product.update', $product->id) }}">
-                                                <input type="submit" value="Edit" class="card-button edit-product">
+                                            <a href="{{ route('product.show', $product->id) }}">
+                                                <input type="submit" value="Show" class="card-button show-product">
                                             </a>
-                                            <form action="{{ route('product.destroy', $product->id) }}" method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this product?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <a>
-                                                    <input type="submit" value="Delete" class="card-button delete-product">
-                                                </a>
-                                            </form>
+                                            @cannot('manage')
+                                                <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                    @csrf
+                                                    <input type="submit" value="Add To Cart"
+                                                        class="card-button add-to-cart"
+                                                        @if ($product->quantity == 0) disabled @endif>
+                                                </form>
+                                            @endcannot
                                         </div>
-                                    @endcan
+                                        @can('manage')
+                                            <div class="card-footer row d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+                                                <a href="{{ route('product.update', $product->id) }}">
+                                                    <input type="submit" value="Edit" class="card-button edit-product">
+                                                </a>
+                                                <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a>
+                                                        <input type="submit" value="Delete"
+                                                            class="card-button delete-product">
+                                                    </a>
+                                                </form>
+                                            </div>
+                                        @endcan
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <button class="btn btn-secondary ms-3" id="scroll-right">→</button>
                 </div>
-                <button class="btn btn-secondary ms-3" id="scroll-right">→</button>
             </div>
-        </div>
+        @endif
 
 
 

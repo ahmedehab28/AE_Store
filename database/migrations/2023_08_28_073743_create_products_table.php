@@ -22,8 +22,7 @@ return new class extends Migration
             $table->float('price')->default(0);
             $table->string('picture')->nullable();
             $table->unsignedInteger('quantity'); // Unsigned integer column
-            $table->foreignId('category_id'); //foregin key
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
