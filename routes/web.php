@@ -78,14 +78,14 @@ Route::middleware(['admin'])->group(function () {
 });
 // Categories admin
 Route::middleware(['admin'])->group(function () {
-    Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('/categories/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/categorycreate', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/categorystore', [CategoryController::class, 'store'])->name('category.store');
 
-    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category.show');
+    Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
 });
 

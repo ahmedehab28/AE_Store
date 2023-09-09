@@ -68,20 +68,35 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        try {
+            $category = Category::findOrFail($id);
+
+            // Validation
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:categories,name,' . $id
+            ]);
+
+            if ($category->name == $validatedData['name']) {
+                return redirect()->back()->with('error', 'Category is already named like that');
+            }
+            // Update the category name
+            $category->name = $validatedData['name'];
+            $category->save();
+
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Category updated successfully!');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Category not found!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->messages())->withInput();
+        }
+
+
     }
+
 
     /**
      * Remove the specified resource from storage.
