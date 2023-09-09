@@ -24,6 +24,13 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         @if (session('errors'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('errors')->first('out_of_stock') }}
@@ -71,6 +78,10 @@
                                                     @csrf
                                                     <input type="submit" value="Add To Cart"
                                                         class="card-button add-to-cart"
+                                                        @if ($product->quantity == 0) disabled @endif>
+                                                    <input type="number" class="form-control" name="quantity"
+                                                        id="quantity" placeholder="quantity" value="1" min="1"
+                                                        max="{{ $product->quantity }}"
                                                         @if ($product->quantity == 0) disabled @endif>
                                                 </form>
                                             @endcannot

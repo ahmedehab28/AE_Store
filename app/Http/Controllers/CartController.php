@@ -17,37 +17,51 @@ class CartController extends Controller
     }
 
 
-    public function add($id) {
+    public function add(Request $request, $id) {
         $product = Product::find($id);
         $cartItem = Cart::get($id);
+
+        // Get the quantity from the form input
+        $validatedData = $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $quantity = $validatedData['quantity'];
+        $tempQuantity = 0;
 
         // Check if the product is in stock
         if ($product->quantity < 1) {
             // Display an error message and redirect back
-            return redirect()->back()->with(['error' => 'This product is out of stock.']);
+            return redirect()->back()->with('error', 'This product is out of stock.');
         }
 
+        if ($quantity > $product->quantity) {
+            return redirect()->back()->with('error', 'There is not enough quantity available for this product.');
+        }
         // Check if the cart already contains this item
         if ($cartItem) {
+            $tempQuantity = $quantity + $cartItem->quantity;
             // The cart already contains this item
             // Check if there is enough quantity available
-            if ($product->quantity <= $cartItem->quantity) {
+            if ($product->quantity < $tempQuantity) {
                 // There is not enough quantity available
                 // Display an error message and redirect back
-                return redirect()->back()->with(['error' => 'There is not enough quantity available for this product.']);
+                return redirect()->back()->with('error', 'There is not enough quantity available for this product.');
             }
         }
 
-        // Add the product to the cart
+        // Add the product to the cart with the specified quantity
+
         Cart::add(array(
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'quantity' => 1,
+            'quantity' => $quantity,
         ));
 
         return redirect()->back()->with('success', 'Item added to cart successfully!');
     }
+
 
     public function removeItem ($id) {
         Cart::remove($id);
@@ -102,8 +116,5 @@ class CartController extends Controller
 
         return redirect()->route('orders.index', $user->id)->with('success', 'Your items were ordered successfully');
     }
-
-
-
 
 }
