@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 
+use Intervention\Image\ImageManagerStatic as Image;
+
+
 
 
 use App\Models\User;
@@ -27,7 +30,6 @@ class ProfileController extends Controller
         return view('profile.show', compact('user'));
 
     }
-
     public function update(User $user, Request $request) {
         if (Gate::denies('same-user', $user)) {
             abort(403, 'Unauthorized action.');
@@ -51,7 +53,13 @@ class ProfileController extends Controller
             }
             $image = $request->file('picture');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('images/profiles'), $imageName);
+
+            // Resize image
+            $resizedImage = Image::make($image)->resize(150, 150);
+
+            // Save resized image to public directory
+            $resizedImage->save(public_path('images/profiles/' . $imageName));
+
             DB::beginTransaction();
 
             try {

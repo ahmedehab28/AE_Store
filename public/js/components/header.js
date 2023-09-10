@@ -1,6 +1,5 @@
 window.onload = function() {
     const selectElement = document.querySelector('.search-container select');
-    console.log(selectElement);
     const setSelectWidth = () => {
         // create a temporary canvas element
         const canvas = document.createElement('canvas');

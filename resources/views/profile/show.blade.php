@@ -25,17 +25,20 @@
                     </button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
+                    <div class="profile-pic">
+                        @if ($user->picture)
+                            <img src="{{ asset('images/profiles/' . $user->picture) }}" alt="Profile Picture"
+                                class="img-fluid">
+                        @else
+                            <img src="{{ asset('images/no-prof-pic.png') }}" alt="Profile Picture" class="img-fluid">
+                        @endif
+                    </div>
 
-                    @if ($user->picture)
-                        <img src="" alt="Profile Picture" class="img-fluid">
-                    @else
-                        <img src="{{ asset('images/no-prof-pic.png') }}" alt="Profile Picture" class="img-fluid">
-                    @endif
                 </div>
 
                 <div class="modal-footer d-flex justify-content-between">
                     <form action="{{ route('profile.update', Auth::user()->id) }}" method="post"
-                        enctype="multipart/form-data" id="uploadForm">
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="custom-file-input">
@@ -49,7 +52,9 @@
                         </div>
                     </form>
 
-                    <form action="/delete" method="post" id="deleteForm">
+                    <form action="/delete" method="post">
+                        @csrf
+                        @method('PUT')
                         <button type="submit" class="btn btn-danger">
                             <i class="fas fa-trash"></i> <!-- Delete icon -->
                         </button>
@@ -98,7 +103,7 @@
                 <div class="me-3">
                     @if ($user->picture)
                         <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal">
-                            <img src="{{ asset('images/profiles/'. $user->picture) }}" alt="Profile Picture"
+                            <img src="{{ asset('images/profiles/' . $user->picture) }}" alt="Profile Picture"
                                 class="profile-picture-modal img-thumbnail rounded-circle">
                         </a>
                     @else
@@ -124,38 +129,43 @@
             <div class="row mt-4">
                 <div class="col-md-12">
                     <h3>Details</h3>
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Name</th>
-                                <td>{{ $user->name }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Email</th>
-                                <td>{{ $user->email }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Phone</th>
-                                <td>{{ $user->phone }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Address</th>
-                                <td>{{ $user->address }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tokens</th>
-                                <td>{{ $user->money }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form action="{{ route('profile.update', $user) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr data-field="name">
+                                    <th scope="row">Name</th>
+                                    <td>{{ $user->name }}</td>
+                                </tr>
+                                <tr data-field="email">
+                                    <th scope="row">Email</th>
+                                    <td>{{ $user->email }}</td>
+                                </tr>
+                                <tr data-field="phone">
+                                    <th scope="row">Phone</th>
+                                    <td>{{ $user->phone }}</td>
+                                </tr>
+                                <tr data-field="address">
+                                    <th scope="row">Address</th>
+                                    <td>{{ $user->address }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <button type="button" class="btn btn-primary">Edit Details</button>
-                </div>
+                        <button type="submit" class="btn btn-success" id="update-button">Update</button>
+                        <button type="button" class="btn btn-primary" id="edit-button">Edit Details</button>
+                        <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
+
+                    </form>
+                 </div>
             </div>
 
         </div>
+
     </div>
     @include('layouts.footer')
+    <script src="{{ asset('js/profile/edit-details.js') }}"></script>
     <script src="{{ asset('js/profile/profile-pic.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
