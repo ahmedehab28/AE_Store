@@ -38,13 +38,14 @@
             </div>
         @endif
 
-        <div class="jumbotron text-center">
-            <h1 class="display-4">Welcome to AE Store!</h1>
-            <p class="lead">Find the best products at the best prices.</p>
-            <p>Start shopping now and explore our wide range of products.</p>
-
-            <hr class="my-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Welcome to AE Store!</h1>
+                <p class="col-md-8 fs-4">Find the best products at the best prices.</p>
+                <a class="btn btn-primary btn-lg" href="{{ route('product.index') }}" role="button">Shop Now</a>
+            </div>
         </div>
+
 
         @if (!$products->isEmpty())
             <div class="container-fluid my-container">
