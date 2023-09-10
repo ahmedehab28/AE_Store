@@ -19,14 +19,22 @@ class UserController extends Controller
     }
 
 
-    public function destroy ($id) {
+    public function destroy (User $user) {
+        if (Gate::denies('same-user', $user) && Gate::denies('manage')){
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+        }
+
         try {
-            $user = User::findOrFail($id);
+            $user = User::findOrFail($user->id);
             if ($user->is_admin == true) {
                 return redirect()->route('users.index')->with('error', 'Admin cannot be deleted!');
             }
             $user->delete();
-            return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+            if (Gate::allows('manage')) {
+                return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+            } else {
+                return redirect()->route('home')->with('success', 'Your account is deleted successfully!');
+            }
         } catch (\Exception $e) {
             return redirect()->route('users.index')->with('error', 'An error occurred while deleting this user. Please try again.');
         }

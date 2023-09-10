@@ -73,8 +73,6 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Users admin
 Route::middleware(['admin'])->group(function () {
     Route::get('/users',[UserController::class, 'index'])->name('users.index');
-    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
-
 });
 // Categories admin
 Route::middleware(['admin'])->group(function () {
@@ -140,6 +138,8 @@ Route::post('/cart/buy', [CartController::class, 'buy'])->name('cart.buy')->midd
 Route::get('/profile/{user}', [ProfileController::class, 'view'])->name('profile.view')->middleware('auth');
 Route::put('/profile/update/{user}', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 Route::put('/profile/remove-picture/{user}', [ProfileController::class, 'removePic'])->name('profile.removePic')->middleware('auth');
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
 
 
 

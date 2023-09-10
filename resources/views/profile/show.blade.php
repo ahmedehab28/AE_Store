@@ -158,7 +158,7 @@
                         <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
 
                     </form>
-                    <form action="" method="post"
+                    <form action="{{ route('user.destroy', $user) }}" method="post"
                         onsubmit="return confirm('Are you sure you want to delete your account?\nAll orders will be canceled!')">
                         @csrf
                         @method('DELETE')

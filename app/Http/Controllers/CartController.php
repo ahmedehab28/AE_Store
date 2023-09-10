@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cart;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 use App\Services\PurchaseService;
 
 use App\Models\Product;
@@ -12,12 +15,22 @@ use App\Models\Product;
 class CartController extends Controller
 {
     public function index() {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
+
         $cartItems = Cart::getContent();
         return view('cart.index', compact('cartItems'));
     }
 
 
     public function add(Request $request, $id) {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
+
         $product = Product::find($id);
         $cartItem = Cart::get($id);
 
@@ -64,11 +77,20 @@ class CartController extends Controller
 
 
     public function removeItem ($id) {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
+
         Cart::remove($id);
         return redirect()->back()->with('success', 'Item removed successfully!');
     }
 
     public function removeOne($id) {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
         // Get the item from the cart
         $item = Cart::get($id);
 
@@ -87,6 +109,10 @@ class CartController extends Controller
     }
 
     public function buy() {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
         $cartItems = Cart::getContent();
         $user = auth()->user();
 

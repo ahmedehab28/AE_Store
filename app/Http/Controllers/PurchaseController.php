@@ -7,9 +7,16 @@ use App\Models\Product;
 use App\Services\PurchaseService;
 use Exception;
 
+use Illuminate\Support\Facades\Gate;
+
+
 
 class PurchaseController extends Controller {
     public function buy(Request $request, Product $product) {
+        if (Gate::allows('manage')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+
+        }
         try {
             // Validate the request data
             $request->validate([
