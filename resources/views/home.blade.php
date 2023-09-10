@@ -38,7 +38,13 @@
             </div>
         @endif
 
-        <h1>HOME SWEET HOME</h1>
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Welcome to AE Store!</h1>
+            <p class="lead">Find the best products at the best prices.</p>
+            <p>Start shopping now and explore our wide range of products.</p>
+
+            <hr class="my-4">
+        </div>
 
         @if (!$products->isEmpty())
             <div class="container-fluid my-container">
@@ -52,7 +58,8 @@
                                 <div class="card mx-2" style="width: 18rem;">
                                     @if ($product->picture && file_exists(public_path('images/products/' . $product->picture)))
                                         <img src="{{ asset('images/products/' . $product->picture) }}"
-                                            class="card-img-top img-fluid" alt="{{ $product->name }}" style="width: 100%; height: 100%;">
+                                            class="card-img-top img-fluid" alt="{{ $product->name }}"
+                                            style="width: 100%; height: 100%;">
                                     @else
                                         <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
                                             alt="NoPic" style="width: 100%; height: 100%;">
