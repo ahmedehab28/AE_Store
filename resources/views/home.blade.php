@@ -60,6 +60,8 @@
 
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $product->name }}</h5>
+                                        <h6 class="card-subtitle">{{ $product->category->name }}</h6>
+
                                         <p class="card-text card-description">{{ $product->description }}</p>
                                         <p class="card-text"><span class="card-attribute">Price:</span>
                                             ${{ $product->price }}</p>
