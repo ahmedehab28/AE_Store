@@ -8,6 +8,7 @@ document.getElementById("edit-button").addEventListener("click", function(event)
         td.innerHTML = '<input class="form-control" name="' + fieldName + '" value="' + content + '" />';
     });
     this.style.display = 'none';
+    document.getElementById("delete-button").style.display = "none";
     document.getElementById("update-button").style.display = "inline-block";
     document.getElementById("cancel-button").style.display = "inline-block";
 });
@@ -22,5 +23,7 @@ document.getElementById("cancel-button").addEventListener("click", function(){
     this.style.display = "none";
     document.getElementById("update-button").style.display = 'none';
     document.getElementById("edit-button").style.display = "inline-block";
+    document.getElementById("delete-button").style.display = "inline-block";
+
 });
 

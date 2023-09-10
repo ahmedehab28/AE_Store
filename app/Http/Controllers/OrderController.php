@@ -16,27 +16,30 @@ class OrderController extends Controller
      * Display a listing of the resource.
      */
     public function index(User $user) {
+        if (Gate::allows('same-user', $user) && Gate::allows('manage')) {
+            return redirect()->route('orders.all');
+        }
+
         if (Gate::allows('same-user', $user) || Gate::allows('manage')) {
             $orders = Order::where('user_id', $user->id)->with(['user', 'product'])->orderBy('created_at', 'desc')->get();
             return view('orders.index', compact('orders'));
         } else {
-            abort(403);
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
     }
 
     public function allOrders () {
-        if (Gate::allows('manage')) {
-            $orders = Order::orderBy('created_at', 'desc')->get();
-            return view('orders.admin.index', compact('orders'));
-        }
+        // authorization and admin role checking is handled in web.php
+        $orders = Order::orderBy('created_at', 'desc')->get();
+        return view('orders.admin.index', compact('orders'));
     }
 
 
     public function confirmation(Order $order) {
         // Check if the user is authorized to view the order
-        if ($order->user_id !== auth()->id()) {
+        if (Gate::denies('same-user-order', $order) && Gate::denies('manage')) {
             // The user is not authorized to view the order
-            abort(403);
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
 
         return view('orders.confirmation', compact('order'));
@@ -45,7 +48,7 @@ class OrderController extends Controller
 
     public function show(Order $order) {
         if (Gate::denies('same-user-order', $order) && Gate::denies('manage')) {
-            abort(403);
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
 
         $order->load('product', 'user');
@@ -54,19 +57,11 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Order $order) {
         if (Gate::denies('same-user', $order->user) && Gate::denies('manage')) {
-            abort(403, 'Unauthorized action.');
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
 
         try {

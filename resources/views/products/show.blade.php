@@ -37,8 +37,8 @@
         @endif
 
         <div class="card">
-            @if ($product->picture)
-                <img src="{{ asset('images/' . $product->picture) }}" class="card-img-top" alt="{{ $product->name }}">
+            @if ($product->picture && file_exists(public_path('images/products/' . $product->picture)))
+                <img src="{{ asset('images/products/' . $product->picture) }}" class="card-img-top" alt="{{ $product->name }}">
             @else
                 <img src="{{ asset('images/header-logo.png') }}" class="card-img-top" alt="NoPic">
             @endif

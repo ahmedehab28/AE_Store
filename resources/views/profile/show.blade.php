@@ -52,7 +52,7 @@
                         </div>
                     </form>
 
-                    <form action="/delete" method="post">
+                    <form action="{{ route('profile.removePic', $user) }}" method="post">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-danger">
@@ -158,6 +158,13 @@
                         <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
 
                     </form>
+                    <form action="" method="post"
+                        onsubmit="return confirm('Are you sure you want to delete your account?\nAll orders will be canceled!')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" id="delete-button">Delete Account</button>
+                    </form>
+
                  </div>
             </div>
 

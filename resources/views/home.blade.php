@@ -50,13 +50,14 @@
                         @foreach ($products as $product)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                                 <div class="card mx-2">
-                                    @if ($product->picture)
-                                        <img src="{{ asset('images/' . $product->picture) }}"
+                                    @if ($product->picture && file_exists(public_path('images/products/' . $product->picture)))
+                                        <img src="{{ asset('images/products/' . $product->picture) }}"
                                             class="card-img-top img-fluid" alt="{{ $product->name }}">
                                     @else
                                         <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
                                             alt="NoPic">
                                     @endif
+
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $product->name }}</h5>
                                         <p class="card-text card-description">{{ $product->description }}</p>

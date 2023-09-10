@@ -24,7 +24,7 @@ class ProfileController extends Controller
     public function view(User $user)
     {
         if (Gate::denies('same-user', $user)) {
-            abort(403, 'Unauthorized action.');
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
         $user = User::find($user->id);
         return view('profile.show', compact('user'));
@@ -32,7 +32,7 @@ class ProfileController extends Controller
     }
     public function update(User $user, Request $request) {
         if (Gate::denies('same-user', $user)) {
-            abort(403, 'Unauthorized action.');
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
         }
 
         if ($request->hasFile('picture')) {
@@ -49,7 +49,10 @@ class ProfileController extends Controller
             }
 
             if ($user->picture) {
-                unlink(public_path('images/profiles/' . $user->picture));
+                $path = public_path('images/profiles/' . $user->picture);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
             }
             $image = $request->file('picture');
             $imageName = time() . '.' . $image->extension();
@@ -117,5 +120,27 @@ class ProfileController extends Controller
             }
         }
     }
+
+
+    public function removePic (User $user) {
+        if (Gate::denies('same-user', $user)) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+        }
+
+        DB::transaction(function () use ($user) {
+            if ($user->picture) {
+                $path = public_path('images/profiles/' . $user->picture);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+
+            $user->picture = null;
+            $user->save();
+        });
+        return redirect()->route('profile.view', $user)->with('success', 'Profile Picture deleted successfully!');
+
+    }
+
 
 }

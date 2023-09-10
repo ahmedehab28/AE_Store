@@ -1,7 +1,15 @@
+.btn {
+    width: 140px;
+}
+
 #cancel-button {
     display: none;
 }
 
 #update-button {
     display: none;
+}
+
+#delete- button {
+    display: inline;
 }

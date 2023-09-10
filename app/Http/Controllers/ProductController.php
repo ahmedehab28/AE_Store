@@ -23,7 +23,7 @@ class ProductController extends Controller
         // dd($products->last());
         // dd($products->toArray());
         // dd($products->where('name','shai_'));
-        return view('products.index',['products'=>$products]);
+        return view('products.index', compact('products'));
     }
 
     function show($id) {
@@ -34,11 +34,16 @@ class ProductController extends Controller
 
 
     public function destroy($id) {
+        // authorization and role checking is handled in web.php
         try {
             $product = Product::findOrFail($id);
-            if ($product->picture){
-                unlink(public_path('images/' . $product->picture));
+            if ($product->picture) {
+                $path = public_path('images/products/' . $product->picture);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
             }
+
             $product->delete();
             return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
         } catch (\Exception $e) {
@@ -48,6 +53,7 @@ class ProductController extends Controller
 
 
     function edit($id) {
+        // authorization and role checking is handled in web.php
         $product = Product::findOrFail($id);
         $categories = Category::all();
 
@@ -55,6 +61,8 @@ class ProductController extends Controller
     }
 
     public function update($id, Request $request) {
+        // authorization and role checking is handled in web.php
+
         // Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -74,12 +82,16 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if ($request->hasFile('picture')) {
-            if ($product->picture){
-                unlink(public_path('images/' . $product->picture));
+            if ($product->picture) {
+                $path = public_path('images/products/' . $product->picture);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
             }
+
             $image = $request->file('picture');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('images'), $imageName);
+            $image->move(public_path('images/products'), $imageName);
         } else {
             $imageName = $product->picture;
         }
@@ -151,7 +163,7 @@ class ProductController extends Controller
         if ($request->hasFile('picture')) {
             $image = $request->file('picture');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('images'), $imageName);
+            $image->move(public_path('images/products'), $imageName);
         }
 
         // Sanitization

@@ -43,8 +43,8 @@
                 @foreach ($products as $product)
                     <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
                         <div class="card w-100 my-2 shadow-2-strong">
-                            @if ($product->picture)
-                                <img src="{{ asset('images/' . $product->picture) }}" class="card-img-top img-fluid"
+                            @if ($product->picture && file_exists(public_path('images/products/' . $product->picture)))
+                                <img src="{{ asset('images/products/' . $product->picture) }}" class="card-img-top img-fluid"
                                     alt="{{ $product->name }}">
                             @else
                                 <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
@@ -66,16 +66,15 @@
                                         <input type="submit" value="Show" class="card-button show-product">
                                     </a>
                                     @cannot('manage')
-                                    <form action="{{ route('cart.add', $product) }}" method="POST">
-                                        @csrf
-                                        <input type="submit" value="Add To Cart"
-                                            class="card-button add-to-cart"
-                                            @if ($product->quantity == 0) disabled @endif>
-                                        <input type="number" class="form-control" name="quantity"
-                                            id="quantity" placeholder="quantity" value="1" min="1"
-                                            max="{{ $product->quantity }}"
-                                            @if ($product->quantity == 0) disabled @endif>
-                                    </form>
+                                        <form action="{{ route('cart.add', $product) }}" method="POST">
+                                            @csrf
+                                            <input type="submit" value="Add To Cart" class="card-button add-to-cart"
+                                                @if ($product->quantity == 0) disabled @endif>
+                                            <input type="number" class="form-control" name="quantity" id="quantity"
+                                                placeholder="quantity" value="1" min="1"
+                                                max="{{ $product->quantity }}"
+                                                @if ($product->quantity == 0) disabled @endif>
+                                        </form>
                                     @endcannot
                                 </div>
                                 @can('manage')
