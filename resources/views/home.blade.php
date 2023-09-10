@@ -49,13 +49,13 @@
                     <div class="d-flex flex-row flex-nowrap overflow-auto align-items-stretch">
                         @foreach ($products as $product)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="card mx-2">
+                                <div class="card mx-2" style="width: 18rem;">
                                     @if ($product->picture && file_exists(public_path('images/products/' . $product->picture)))
                                         <img src="{{ asset('images/products/' . $product->picture) }}"
-                                            class="card-img-top img-fluid" alt="{{ $product->name }}">
+                                            class="card-img-top img-fluid" alt="{{ $product->name }}" style="width: 100%; height: 100%;">
                                     @else
                                         <img src="{{ asset('images/header-logo.png') }}" class="card-img-top img-fluid"
-                                            alt="NoPic">
+                                            alt="NoPic" style="width: 100%; height: 100%;">
                                     @endif
 
                                     <div class="card-body d-flex flex-column">
@@ -89,7 +89,7 @@
                                         </div>
                                         @can('manage')
                                             <div class="card-footer row d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                                <a href="{{ route('product.update', $product->id) }}">
+                                                <a href="{{ route('product.edit', $product->id) }}">
                                                     <input type="submit" value="Edit" class="card-button edit-product">
                                                 </a>
                                                 <form action="{{ route('product.destroy', $product->id) }}" method="POST"
